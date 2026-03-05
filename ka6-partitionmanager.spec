@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	25.12.2
+%define		kdeappsver	25.12.3
 %define		kframever	6.13.0
 %define		qtver		6.8
 %define		kaname		partitionmanager
 Summary:	minuet
 Name:		ka6-%{kaname}
-Version:	25.12.2
+Version:	25.12.3
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	cc51c49a9a487ba9ed5d22fc878b2b83
+# Source0-md5:	c3ecd8d062bab03a6e7d32e03f5f0ac9
 URL:		http://www.kde.org/
 BuildRequires:	Qt6Core-devel >= %{qtver}
 BuildRequires:	Qt6Gui-devel
@@ -46,7 +46,7 @@ BuildRequires:	rpmbuild(macros) >= 1.293
 BuildRequires:	shared-mime-info
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Requires(post,postun):	desktop-file-utils
+Requires:	%{name}-data = %{version}-%{release}
 %requires_eq_to Qt6Core Qt6Core-devel
 Obsoletes:	ka5-partitionmanager < 25.04.0
 Obsoletes:	partitionmanager < 25.04.0
@@ -55,6 +55,20 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Easily manage disks, partitions and file systems on your KDE Desktop:
 Create, resize, move, copy, back up, restore or delete partitions.
+
+%package data
+Summary:	Data files for %{kaname}
+Summary(pl.UTF-8):	Dane dla %{kaname}
+Group:		X11/Applications
+Requires(post,postun):	desktop-file-utils
+Obsoletes:	ka5-%{kaname}-data < 24.12.0
+BuildArch:	noarch
+
+%description data
+Data files for %{kaname}.
+
+%description data -l pl.UTF-8
+Dane dla %{kaname}.
 
 %prep
 %setup -q -n %{kaname}-%{version}
@@ -82,15 +96,18 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
+%post data
 %update_desktop_database_post
 
-%postun
+%postun data
 %update_desktop_database_postun
 
-%files -f %{kaname}.lang
+%files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/partitionmanager
+
+%files data  -f %{kaname}.lang
+%defattr(644,root,root,755)
 %{_desktopdir}/org.kde.partitionmanager.desktop
 %{_datadir}/config.kcfg/partitionmanager.kcfg
 %{_iconsdir}/hicolor/scalable/apps/partitionmanager.svg
