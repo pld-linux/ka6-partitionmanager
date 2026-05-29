@@ -53,8 +53,20 @@ Obsoletes:	partitionmanager < 25.04.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Easily manage disks, partitions and file systems on your KDE Desktop:
-Create, resize, move, copy, back up, restore or delete partitions.
+KDE Partition Manager is a utility to help you manage the disks,
+partitions, and file systems on your computer. It allows you to easily
+create, copy, move, delete, back up, restore, and resize them without
+losing data. It supports a large number of file systems, including
+ext2/3/4, btrfs, reiserfs, NTFS, FAT16/32, JFS, XFS and more.
+
+%description -l pl.UTF-8
+Zarządzanie partycjami KDE jest programem użytkowym mającym na celu
+pomoc przy zarządzaniu urządzeniami dyskowymi, partycjami i systemami
+plików na twoim komputerze. Umożliwia łatwe tworzenie, kopiowanie,
+przenoszenie, usuwanie i zamianę rozmiaru bez utraty danych, a także
+tworzenie i przywracanie kopii zapasowych partycji. Obsługuje dużą
+liczbę systemów plików takich jak m.in. ext2/3/4, btrfs, reiserfs,
+NTFS, FAT16/32, JFS, XFS i więcej.
 
 %package data
 Summary:	Data files for %{kaname}
